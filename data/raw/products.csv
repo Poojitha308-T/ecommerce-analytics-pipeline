@@ -1,0 +1,201 @@
+product_id,product_name,category,price
+P0001,Keyboard,Electronics,9661.4
+P0002,Yoga Mat,Sports,853.62
+P0003,Office Chair,Home,14833.43
+P0004,Football,Sports,1122.29
+P0005,Football,Sports,8837.11
+P0006,Sneakers,Fashion,-11638.09
+P0007,Yoga Mat,Sports,4231.4
+P0008,Jeans,Fashion,8149.21
+P0009,T-Shirt,Fashion,9949.76
+P0010,Keyboard,Electronics,321.42
+P0011,Sneakers,Fashion,335.14
+P0012,Desk Lamp,Home,1988.7
+P0013,Face Wash,Beauty,11210.41
+P0014,Moisturizer,Beauty,11692.45
+P0015,Yoga Mat,Sports,6834.88
+P0016,T-Shirt,Fashion,10935.92
+P0017,Dumbbells,Sports,6924.83
+P0018,Wireless Mouse,Electronics,14978.94
+P0019,Moisturizer,Beauty,10322.85
+P0020,Moisturizer,Beauty,1195.01
+P0021,Headphones,Electronics,9163.63
+P0022,Keyboard,Electronics,4197.74
+P0023,Dumbbells,Sports,5775.48
+P0024,Dumbbells,Sports,6860.36
+P0025,Running Shoes,Sports,1577.76
+P0026,Keyboard,Electronics,6508.04
+P0027,Jacket,Fashion,5150.08
+P0028,Moisturizer,Beauty,6298.25
+P0029,Headphones,Electronics,6458.78
+P0030,Coffee Maker,Home,14308.53
+P0031,Face Wash,Beauty,1459.25
+P0032,Wireless Mouse,Electronics,6534.96
+P0033,Office Chair,Home,8389.92
+P0034,Dumbbells,Sports,10083.2
+P0035,Perfume,Beauty,13116.75
+P0036,Face Wash,Beauty,-14529.14
+P0037,Dumbbells,Sports,5339.53
+P0038,Football,Sports,2405.48
+P0039,Shampoo,Beauty,12724.4
+P0040,Coffee Maker,Home,1811.79
+P0041,Office Chair,Home,12127.6
+P0042,Yoga Mat,Sports,9174.02
+P0043,Desk Lamp,Home,2788.2
+P0044,Coffee Maker,Home,5330.25
+P0045,Jeans,Fashion,8538.18
+P0046,Face Wash,Beauty,2213.93
+P0047,Wireless Mouse,Electronics,11217.07
+P0048,Jacket,Fashion,6355.5
+P0049,Office Chair,Home,5613.79
+P0050,Desk Lamp,Home,13261.8
+P0051,Jeans,Fashion,11341.09
+P0052,Wireless Mouse,Electronics,4154.33
+P0053,Moisturizer,Beauty,9145.43
+P0054,Perfume,Beauty,3311.98
+P0055,Yoga Mat,Sports,-5243.08
+P0056,Headphones,Electronics,10205.45
+P0057,Running Shoes,Sports,7951.32
+P0058,Desk Lamp,Home,3385.72
+P0059,Yoga Mat,Sports,214.54
+P0060,Office Chair,Home,11533.51
+P0061,Coffee Maker,Home,4989.02
+P0062,Smartwatch,Electronics,11230.51
+P0063,Jeans,Fashion,5765.09
+P0064,Sneakers,Fashion,1173.92
+P0065,Smartwatch,Electronics,379.25
+P0066,Headphones,Electronics,8678.81
+P0067,Running Shoes,Sports,10671.53
+P0068,Perfume,Beauty,1816.08
+P0069,Headphones,Electronics,2660.91
+P0070,Running Shoes,Sports,12497.19
+P0071,Desk Lamp,Home,6607.01
+P0072,Keyboard,Electronics,6591.58
+P0073,Face Wash,Beauty,5996.92
+P0074,Coffee Maker,Home,3401.42
+P0075,T-Shirt,Fashion,7706.2
+P0076,Keyboard,Electronics,13598.25
+P0077,Coffee Maker,Home,10937.95
+P0078,Jeans,Fashion,1631.79
+P0079,Office Chair,Home,2685.14
+P0080,T-Shirt,Fashion,2739.48
+P0081,Moisturizer,Beauty,11341.24
+P0082,Running Shoes,Sports,10248.89
+P0083,Dumbbells,Sports,12977.28
+P0084,Office Chair,Home,6652.47
+P0085,Moisturizer,Beauty,9507.64
+P0086,Desk Lamp,Home,5343.94
+P0087,Headphones,Electronics,6979.96
+P0088,Wireless Mouse,Electronics,5594.19
+P0089,Desk Lamp,Home,9705.53
+P0090,Smartwatch,Electronics,6994.4
+P0091,Yoga Mat,Sports,-6801.03
+P0092,Football,Sports,4890.75
+P0093,Shampoo,Beauty,14370.06
+P0094,Face Wash,Beauty,12183.41
+P0095,Desk Lamp,Home,7617.78
+P0096,T-Shirt,Fashion,3791.38
+P0097,Moisturizer,Beauty,-7908.62
+P0098,Football,Sports,5522.08
+P0099,Bedsheet,Home,6190.66
+P0100,Desk Lamp,Home,11859.48
+P0101,Desk Lamp,Home,5012.39
+P0102,Running Shoes,Sports,4333.79
+P0103,Football,Sports,5067.09
+P0104,Football,Sports,13759.52
+P0105,Bedsheet,Home,2021.38
+P0106,Headphones,Electronics,8427.94
+P0107,Office Chair,Home,10084.73
+P0108,Yoga Mat,Sports,9725.77
+P0109,Perfume,Beauty,371.64
+P0110,Office Chair,Home,14272.42
+P0111,Bedsheet,Home,2960.88
+P0112,Jeans,Fashion,1249.76
+P0113,Wireless Mouse,Electronics,9962.75
+P0114,Football,Sports,8998.97
+P0115,Jeans,Fashion,2794.6
+P0116,Football,Sports,10845.63
+P0117,Smartwatch,Electronics,-5528.06
+P0118,Jacket,Fashion,9197.87
+P0119,Shampoo,Beauty,8056.77
+P0120,Bedsheet,Home,13569.22
+P0121,Sneakers,Fashion,10206.77
+P0122,Running Shoes,Sports,6979.03
+P0123,Bedsheet,Home,7593.31
+P0124,Shampoo,Beauty,12271.68
+P0125,Football,Sports,13107.73
+P0126,Smartwatch,Electronics,13124.34
+P0127,Yoga Mat,Sports,10699.87
+P0128,Yoga Mat,Sports,4347.44
+P0129,Sneakers,Fashion,6794.86
+P0130,Football,Sports,12482.6
+P0131,Keyboard,Electronics,12268.88
+P0132,Desk Lamp,Home,6281.96
+P0133,Perfume,Beauty,3613.09
+P0134,Headphones,Electronics,3445.63
+P0135,Desk Lamp,Home,-12603.73
+P0136,Office Chair,Home,2150.23
+P0137,Bedsheet,Home,10471.47
+P0138,Jacket,Fashion,6784.16
+P0139,Wireless Mouse,Electronics,383.16
+P0140,Jeans,Fashion,8277.18
+P0141,Running Shoes,Sports,1756.68
+P0142,Office Chair,Home,4587.15
+P0143,Keyboard,Electronics,6355.4
+P0144,Running Shoes,Sports,1035.83
+P0145,Face Wash,Beauty,9516.13
+P0146,Football,Sports,10806.31
+P0147,Bedsheet,Home,123.31
+P0148,Office Chair,Home,8602.89
+P0149,T-Shirt,Fashion,7899.92
+P0150,Desk Lamp,Home,14305.71
+P0151,Yoga Mat,Sports,5917.76
+P0152,Face Wash,Beauty,9571.49
+P0153,Coffee Maker,Home,11235.02
+P0154,Desk Lamp,Home,5237.56
+P0155,Headphones,Electronics,2087.8
+P0156,Coffee Maker,Home,12221.28
+P0157,Jacket,Fashion,14714.21
+P0158,Shampoo,Beauty,12191.32
+P0159,Smartwatch,Electronics,651.06
+P0160,T-Shirt,Fashion,11887.53
+P0161,Headphones,Electronics,-14007.23
+P0162,Running Shoes,Sports,14837.93
+P0163,Running Shoes,Sports,3874.38
+P0164,Sneakers,Fashion,5418.92
+P0165,Headphones,Electronics,4170.93
+P0166,Bedsheet,Home,13353.35
+P0167,Moisturizer,Beauty,5151.65
+P0168,Jacket,Fashion,10411.82
+P0169,Coffee Maker,Home,12037.11
+P0170,Face Wash,Beauty,6516.05
+P0171,Sneakers,Fashion,4886.05
+P0172,Headphones,Electronics,9947.7
+P0173,Bedsheet,Home,9079.06
+P0174,Shampoo,Beauty,10377.5
+P0175,Bedsheet,Home,731.09
+P0176,Bedsheet,Home,4190.87
+P0177,Wireless Mouse,Electronics,10100.64
+P0178,Perfume,Beauty,7744.98
+P0179,T-Shirt,Fashion,2227.41
+P0180,Running Shoes,Sports,618.5
+P0181,Keyboard,Electronics,11699.88
+P0182,Coffee Maker,Home,5804.53
+P0183,Yoga Mat,Sports,9115.91
+P0184,Perfume,Beauty,-5643.0
+P0185,Keyboard,Electronics,7988.95
+P0186,Perfume,Beauty,9778.45
+P0187,T-Shirt,Fashion,486.11
+P0188,Jacket,Fashion,7814.4
+P0189,Yoga Mat,Sports,4000.47
+P0190,Bedsheet,Home,3297.1
+P0191,Dumbbells,Sports,10440.31
+P0192,Shampoo,Beauty,-1927.3
+P0193,Smartwatch,Electronics,2672.58
+P0194,Face Wash,Beauty,12176.65
+P0195,Coffee Maker,Home,10672.15
+P0196,Dumbbells,Sports,13380.84
+P0197,Jeans,Fashion,11926.08
+P0198,Football,Sports,1908.3
+P0199,Jeans,Fashion,3627.37
+P0200,Face Wash,Beauty,5477.36
