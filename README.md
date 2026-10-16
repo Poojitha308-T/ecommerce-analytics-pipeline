@@ -57,7 +57,7 @@ ecommerce-analytics-pipeline/
 **1. Clone the repository**
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/ecommerce-analytics-pipeline.git
+git clone https://github.com/Poojitha308-T/ecommerce-analytics-pipeline.git
 cd ecommerce-analytics-pipeline
 ```
 
