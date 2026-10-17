@@ -312,4 +312,3 @@ Planned tasks:
 
 T. Poojitha
 
-*This project uses synthetic data generated for educational and portfolio purposes.*
