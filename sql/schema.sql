@@ -119,3 +119,65 @@ CREATE TABLE IF NOT EXISTS production.fact_orders (
         )
 );
 
+
+
+SELECT
+    table_schema,
+    table_name
+FROM information_schema.tables
+WHERE table_schema IN ('raw', 'production')
+  AND table_type = 'BASE TABLE'
+ORDER BY table_schema, table_name;
+
+
+SELECT
+    tc.table_schema,
+    tc.table_name,
+    tc.constraint_name,
+    tc.constraint_type
+FROM information_schema.table_constraints tc
+WHERE tc.table_schema IN ('raw', 'production')
+  AND tc.constraint_type IN (
+      'PRIMARY KEY',
+      'FOREIGN KEY',
+      'CHECK'
+  )
+ORDER BY
+    tc.table_schema,
+    tc.table_name,
+    tc.constraint_type;
+
+SELECT
+    conname AS constraint_name,
+    pg_get_constraintdef(oid) AS definition
+FROM pg_constraint
+WHERE conrelid = 'production.fact_orders'::regclass
+  AND contype = 'f';
+
+SELECT 'raw.customers' AS table_name, COUNT(*) AS row_count
+FROM raw.customers
+
+UNION ALL
+
+SELECT 'raw.products', COUNT(*)
+FROM raw.products
+
+UNION ALL
+
+SELECT 'raw.orders', COUNT(*)
+FROM raw.orders
+
+UNION ALL
+
+SELECT 'production.dim_customers', COUNT(*)
+FROM production.dim_customers
+
+UNION ALL
+
+SELECT 'production.dim_products', COUNT(*)
+FROM production.dim_products
+
+UNION ALL
+
+SELECT 'production.fact_orders', COUNT(*)
+FROM production.fact_orders;
