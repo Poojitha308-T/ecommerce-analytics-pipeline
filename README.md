@@ -308,6 +308,192 @@ Planned tasks:
 
 **Project status:** Days 1, 2, and 3 completed out of the planned seven-day implementation schedule.
 
+## Day 4 — Data Deduplication, Production Loading & Validation
+
+### Objective
+
+Transform cleaned staging data into reliable, production-ready PostgreSQL tables while enforcing data quality and referential integrity.
+
+The production layer will serve as the foundation for downstream SQL analytics, RFM customer segmentation, checkout funnel analysis, and Power BI dashboards.
+
+### 1. Customer Deduplication
+
+Created the view:
+
+`staging.customers_deduplicated`
+
+Used the SQL `ROW_NUMBER()` window function to retain one record per customer ID, prioritizing the most recently ingested record and using the raw row ID as a deterministic tie-breaker.
+
+**Results:**
+
+- Original customer rows: 1,050
+- Unique customers: 1,000
+- Additional duplicate rows: 50
+- Duplicate customer IDs in final view: 0
+- Missing required customer fields: 0
+
+SQL file: `sql/07_deduplicate_customers.sql`
+
+### 2. Valid Product Preparation
+
+Created the view:
+
+`staging.products_valid`
+
+Filtered products using the validation rules developed during Day 3.
+
+Only products with complete required information and a positive price were retained.
+
+**Results:**
+
+- Original products: 200
+- Valid products: 190
+- Excluded invalid products: 10
+- Duplicate product IDs in valid view: 0
+- Invalid prices in valid view: 0
+
+SQL file: `sql/08_prepare_valid_products.sql`
+
+### 3. Order Deduplication & Validation
+
+Created two views:
+
+- `staging.orders_deduplicated`
+- `staging.orders_valid`
+
+Used `ROW_NUMBER()` to select one record per order ID, then applied data quality checks to exclude invalid records.
+
+Validation rules included:
+
+- Required order information must be present.
+- Quantity must be positive.
+- Delivery dates must not precede order dates.
+- Order statuses and checkout stages must be valid and consistent.
+- Customer references must exist in the deduplicated customer view.
+- Product references must exist in the valid product view.
+
+**Results:**
+
+- Original order rows: 5,250
+- Unique order IDs: 5,000
+- Additional duplicate rows: 250
+- Valid orders: 4723
+- Duplicate order IDs in valid view: 0
+- Invalid customer/product references in valid view: 0
+
+Valid abandoned and cancelled checkout attempts were retained for future funnel analysis. They will be excluded from revenue calculations.
+
+SQL file: `sql/09_deduplicate_orders.sql`
+
+### 4. Production Data Loading
+
+Loaded validated data into the following PostgreSQL tables:
+
+| Production table | Records |
+|---|---:|
+| `production.dim_customers` | 1,000 |
+| `production.dim_products` | 190 |
+| `production.fact_orders` | 4723 |
+
+The loading script inserts customer and product dimensions before the order fact table to satisfy foreign key constraints.
+
+The load uses a PostgreSQL transaction to prevent partially committed data if validation fails.
+
+SQL file: `sql/10_load_production.sql`
+
+### 5. Production Data Quality Validation
+
+Created a validation script to verify the integrity and consistency of the production layer.
+
+Validation covered:
+
+- Expected customer and product row counts
+- Production-to-staging order count consistency
+- Duplicate primary keys
+- Missing customer and product references
+- Invalid product prices
+- Invalid order quantities
+- Invalid delivery dates
+- Missing required order information
+
+**Validation result: 12 out of 12 automated checks passed.**
+
+An additional `EXCEPT ALL` comparison confirmed that staging and production order records matched exactly, with zero missing, extra, or different rows.
+
+SQL file: `sql/11_validate_production.sql`
+
+### 6. Production Star Schema
+
+The production database follows a simple dimensional model:
+
+```text
+production.dim_customers
+    customer_id (PK)
+          |
+          | 1-to-many
+          |
+production.fact_orders
+    order_id (PK)
+    customer_id (FK)
+    product_id (FK)
+          |
+          | many-to-1
+          |
+production.dim_products
+    product_id (PK)
+```
+
+**Dimension tables:**
+
+- `production.dim_customers` — Customer attributes, including country and signup date.
+- `production.dim_products` — Product attributes, including category and price.
+
+**Fact table:**
+
+- `production.fact_orders` — Order transactions and checkout activity.
+
+This model will support customer analytics, product performance analysis, sales reporting, and Power BI relationships.
+
+### 7. Revenue Definition
+
+For this project, gross sales value is calculated using:
+
+`SUM(quantity * product_price)`
+
+Only orders meeting both conditions are counted as sales:
+
+- `checkout_stage = 'Completed'`
+- `order_status IN ('Delivered', 'Shipped')`
+
+Cancelled and abandoned orders are excluded from revenue calculations.
+
+This is a project-defined gross sales metric, not net profit or a calculation adjusted for discounts, taxes, and returns.
+
+### 8. Day 4 SQL Files
+
+| File | Purpose |
+|---|---|
+| `sql/07_deduplicate_customers.sql` | Deduplicate customers |
+| `sql/08_prepare_valid_products.sql` | Filter valid products |
+| `sql/09_deduplicate_orders.sql` | Deduplicate and validate orders |
+| `sql/10_load_production.sql` | Load production tables |
+| `sql/11_validate_production.sql` | Validate production data |
+
+### 9. Day 4 Outcome
+
+Successfully established a validated production data layer with:
+
+- 1,000 unique customers
+- 190 valid products
+- Unique, validated order records
+- Enforced primary and foreign key constraints
+- 12 passing automated production quality checks
+- Exact staging-to-production order consistency
+
+**Next: Day 5 — RFM Customer Segmentation**
+
+Analyze customers using Recency, Frequency, and Monetary value to identify high-value customers, loyal customers, at-risk customers, and other actionable customer segments.
+
 ## Author
 
 T. Poojitha
