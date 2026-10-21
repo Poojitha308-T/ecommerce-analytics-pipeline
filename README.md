@@ -494,6 +494,159 @@ Successfully established a validated production data layer with:
 
 Analyze customers using Recency, Frequency, and Monetary value to identify high-value customers, loyal customers, at-risk customers, and other actionable customer segments.
 
+## Day 5 — RFM Customer Segmentation
+
+### Objective
+
+Build a reusable SQL-based customer segmentation pipeline using Recency, Frequency, and Monetary (RFM) analysis to understand customer purchasing behavior, identify valuable customer groups, and support future Power BI dashboards.
+
+### Data Sources
+
+The analysis uses the validated PostgreSQL production tables:
+
+- `production.dim_customers`
+- `production.dim_products`
+- `production.fact_orders`
+
+The RFM analysis includes qualifying sales where:
+
+- `checkout_stage = 'Completed'`
+- `order_status IN ('Delivered', 'Shipped')`
+- `order_date < DATE '2026-10-01'`
+
+The fixed analysis date is **2026-10-01**, immediately after the synthetic dataset's reporting period. This ensures reproducible RFM results.
+
+### RFM Metrics
+
+| Metric | Definition | Interpretation |
+|---|---|---|
+| Recency | Days since the customer's latest qualifying purchase | Lower is better |
+| Frequency | Number of qualifying orders | Higher is better |
+| Monetary | Sum of order quantity multiplied by product price | Higher is better |
+
+All 1,000 customers are retained in the analysis, including those without qualifying purchases.
+
+Customers without purchases receive:
+
+- `recency_days = NULL`
+- `frequency = 0`
+- `monetary = 0`
+
+### RFM Scoring
+
+RFM scores are calculated using PostgreSQL window functions and distinct metric values.
+
+- Recency scores: 1–5, with 5 representing more recent purchases.
+- Frequency scores: 1–5, with 5 representing higher purchase frequency.
+- Monetary scores: 1–5, with 5 representing higher spending.
+- Customers without qualifying purchases receive scores of 0.
+
+`NTILE(5)` is applied to distinct metric values before scores are joined back to customers, ensuring identical metric values receive identical scores.
+
+Scores are value-based and do not necessarily produce equally sized customer groups.
+
+An RFM code such as `545` represents Recency = 5, Frequency = 4, and Monetary = 5.
+
+### Customer Segments
+
+The pipeline assigns each customer to one of seven mutually exclusive segments.
+
+| Segment | Business rule | Potential action |
+|---|---|---|
+| Champions | R ≥ 4, F ≥ 4, M ≥ 4 | VIP rewards and loyalty benefits |
+| Loyal Customers | F ≥ 4, excluding Champions | Personalized offers and referrals |
+| Potential Loyalists | R ≥ 4, F ≥ 3, excluding earlier segments | Loyalty enrollment and cross-selling |
+| Recent Customers | R ≥ 4, excluding earlier segments | Welcome and second-purchase campaigns |
+| At Risk | R ≤ 2 and (F ≥ 3 or M ≥ 4) | Re-engagement campaigns |
+| Needs Attention | Remaining purchasing customers | Targeted promotions |
+| No Purchases | Frequency = 0 | First-purchase incentives |
+
+Segment rules are evaluated in priority order to prevent overlapping assignments.
+
+### RFM Segment Performance
+
+The segment performance view calculates:
+
+- Customer count and customer share
+- Qualifying sales order count
+- Total monetary value and monetary share
+- Average purchase frequency
+- Average recency
+- Average monetary value per customer
+- Average order value
+- Difference between monetary share and customer share
+
+**Verified results:**
+
+- Total customers: **1,000**
+- Purchasing customers: **925**
+- Non-purchasing customers: **75**
+- Qualifying sales orders: **2808**
+- Total monetary value: **61110917.16**
+- Highest-contributing customer segment: **Recent Customers**
+
+### Business Insights
+
+The analysis supports the following business questions:
+
+1. Which customer segment contributes the highest share of qualifying gross sales?
+2. Which segments have the highest average purchase frequency?
+3. What proportion of historical monetary value belongs to At Risk customers?
+4. Which customer segments should be prioritized for loyalty or re-engagement campaigns?
+
+Actual findings and recommendations will be documented using the validated segment performance results.
+
+**RFM Business Insight:** The Potential Loyalists segment represents 10.30% of customers but contributes 19.98% of estimated historical gross sales value. This indicates a disproportionately high contribution relative to its customer count. A potential business action is to test targeted retention or loyalty campaigns for this segment.
+
+### SQL Files
+
+| File | Purpose |
+|---|---|
+| `sql/12_create_rfm_metrics.sql` | Calculates customer Recency, Frequency, and Monetary metrics |
+| `sql/13_create_rfm_scores.sql` | Assigns tie-consistent RFM scores |
+| `sql/14_create_rfm_segments.sql` | Classifies customers into seven segments |
+| `sql/15_analyze_rfm_segments.sql` | Creates segment performance analytics |
+| `sql/16_validate_rfm_pipeline.sql` | Runs automated RFM quality checks |
+
+### PostgreSQL Views
+
+- `production.customer_rfm_metrics`
+- `production.customer_rfm_scores`
+- `production.customer_rfm_segments`
+- `production.rfm_segment_performance`
+
+### Data Quality and Validation
+
+The complete RFM pipeline passed **15 out of 15 automated validation checks**.
+
+Validation covered:
+
+- Customer count and uniqueness
+- RFM metric validity
+- RFM scoring ranges
+- Identical metric values receiving identical scores
+- Preservation of customer metrics across views
+- RFM score code correctness
+- Segment assignment validity
+- Customer ID preservation
+- Reconciliation of order frequency and monetary totals
+- Segment-level aggregation consistency
+- Customer share and monetary share totals
+
+The monetary percentage shares may sum to approximately 100% rather than exactly 100% because segment percentages are rounded to two decimal places.
+
+### Data Limitations
+
+The dataset is synthetically generated for portfolio and learning purposes.
+
+Monetary values are calculated using product prices stored in `production.dim_products`, rather than historical transaction-level prices. They should therefore be interpreted as estimated historical gross sales values.
+
+The analysis does not calculate profit, customer acquisition cost, or predicted lifetime value.
+
+### Next Step — Day 6
+
+Build SQL-based business analytics, including sales trends, product performance, customer behavior, and checkout funnel analysis to prepare the dataset for Power BI reporting.
+
 ## Author
 
 T. Poojitha
