@@ -647,6 +647,185 @@ The analysis does not calculate profit, customer acquisition cost, or predicted 
 
 Build SQL-based business analytics, including sales trends, product performance, customer behavior, and checkout funnel analysis to prepare the dataset for Power BI reporting.
 
+## Day 6 — Business Analytics with SQL
+
+### Objective
+
+Build a reusable PostgreSQL business analytics layer to support e-commerce reporting and future Power BI dashboards.
+
+The analysis covers sales KPIs, monthly sales trends, product and category performance, and estimated checkout funnel progression.
+
+### Reporting Data Sources
+
+The analysis uses the validated production star schema:
+
+- `production.dim_customers`
+- `production.dim_products`
+- `production.fact_orders`
+
+For sales reporting, qualifying orders satisfy:
+
+```sql
+checkout_stage = 'Completed'
+AND order_status IN ('Delivered', 'Shipped')
+AND order_date < DATE '2026-10-01'
+```
+
+The reporting period covers January 2024 through September 2026.
+
+Gross sales values are estimated using order quantity multiplied by the product price stored in the product dimension.
+
+### 1. Sales KPI Analytics
+
+**View:** `production.sales_kpi_summary`
+
+This view provides:
+
+- Total registered customers
+- Qualifying sales orders
+- Purchasing customers
+- Units sold
+- Estimated gross sales value
+- Average order value
+- Orders per purchasing customer
+- Percentage of registered customers who purchased
+
+**Verified KPI results:**
+
+| KPI | Result |
+|---|---|
+| Qualifying sales orders | 2808 |
+| Purchasing customers | 925 |
+| Units sold | 8374 |
+| Estimated gross sales value | 61110917.16 |
+| Average order value | 21763.15 |
+
+### 2. Monthly Sales Trends
+
+**View:** `production.monthly_sales_trends`
+
+Contains 33 calendar months from January 2024 through September 2026, including months with zero qualifying sales.
+
+Metrics include monthly sales, order counts, units sold, purchasing customers, average order value, month-over-month growth, and cumulative sales.
+
+PostgreSQL functions used:
+
+- `DATE_TRUNC()` for monthly aggregation
+- `GENERATE_SERIES()` for a complete reporting calendar
+- `LAG()` for previous-month comparisons
+- `SUM() OVER()` for cumulative sales
+
+**Highest-sales month:** 2026-08
+
+**Gross sales in that month:** 6042747.25
+
+### 3. Product and Category Performance
+
+**Views:**
+
+- `production.product_performance`
+- `production.category_performance`
+
+The product view includes all 190 valid products, including products without qualifying sales.
+
+The analysis provides product and category sales totals, units sold, purchasing customers, average order value, sales contribution percentages, and sales rankings.
+
+PostgreSQL `RANK()` window functions identify top-performing products overall and within each category.
+
+**Highest-gross-sales product:** Running Shoes
+
+**Highest-gross-sales category:** Sports
+
+**Top category sales contribution:** 1.63%
+
+### 4. Checkout Funnel Analysis
+
+**Views:**
+
+- `production.checkout_funnel_summary`
+- `production.checkout_stage_status`
+
+The funnel examines four checkout stages:
+
+1. Cart
+2. Checkout
+3. Payment
+4. Completed
+
+All production orders are included, including abandoned and cancelled orders.
+
+Each order contains one recorded checkout stage. The analysis assumes this is the last stage reached and infers that later stages imply progression through earlier stages.
+
+Therefore, the funnel reports estimated order-stage reach and drop-off, not directly observed customer journeys or website visitor conversion rates.
+
+**Largest estimated drop-off:** Cart → Checkout
+
+**Estimated orders lost at this transition:** 700
+
+**Estimated drop-off rate:** 14.82%
+
+The stage-status view separately reports order statuses within each last-recorded checkout stage.
+
+### 5. Business Insights
+
+The reporting layer supports questions such as:
+
+- Which month generated the highest estimated gross sales?
+- Which products and categories contribute the most sales?
+- Are monthly sales increasing or decreasing?
+- Where does the checkout funnel show the greatest estimated drop-off?
+- How does order status vary by checkout stage?
+
+**Finding 1 — Sales trends:** 2026-08 recorded the highest estimated gross sales value of 6042747.25 during the reporting period.
+
+**Finding 2 — Product or category performance:** Home was the highest-contributing product category, generating 28.30% of estimated gross sales.
+
+**Finding 3 — Checkout behavior:** The largest estimated drop-off occurred between Cart → Checkout, with 700 orders not progressing to the next stage (14.82%). This may indicate an area worth investigating to improve checkout completion.
+
+These findings are descriptive and do not establish the causes of sales changes or checkout abandonment.
+
+### 6. SQL Files
+
+| File | Purpose |
+|---|---|
+| `sql/17_create_sales_kpis.sql` | Overall sales KPIs |
+| `sql/18_create_monthly_sales_trends.sql` | Monthly sales and growth analysis |
+| `sql/19_create_product_category_performance.sql` | Product and category performance |
+| `sql/20_create_checkout_funnel.sql` | Estimated checkout funnel and status analysis |
+| `sql/21_validate_business_analytics.sql` | Integrated business analytics validation |
+
+### 7. Data Quality and Validation
+
+The business analytics pipeline passed **16 out of 16 integrated validation checks**.
+
+Checks covered:
+
+- Existence of all six reporting views
+- Sales KPI consistency with qualifying source orders
+- Complete 33-month reporting calendar
+- Monthly sales reconciliation and cumulative totals
+- Preservation of all 190 valid products
+- Product and category reconciliation with sales KPIs
+- Valid product and category ranking values
+- Four expected checkout stages
+- Checkout order count reconciliation
+- Non-increasing inferred funnel reach
+
+The individual reporting views were also validated during development.
+
+### 8. Data Limitations
+
+- The dataset is synthetic and intended for portfolio demonstration.
+- Gross sales values are estimates based on product dimension prices, not historical transaction-level prices.
+- The analysis does not calculate net revenue, profit, refunds, taxes, or shipping costs.
+- Checkout progression is inferred from one stage recorded per order, not measured from website sessions or event logs.
+- The purchasing customer percentage is not a website visitor conversion rate.
+- Rounded contribution percentages may not total exactly 100%.
+
+### 9. Next Steps
+
+Complete the Week 1 SQL project review, verify the complete pipeline, and prepare the PostgreSQL reporting layer for Power BI dashboard development.
+
 ## Author
 
 T. Poojitha
