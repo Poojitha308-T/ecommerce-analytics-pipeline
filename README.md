@@ -1,5 +1,170 @@
 # E-Commerce Analytics Pipeline
 
+**End-to-End Data Engineering and Business Analytics Portfolio Project**
+
+A 14-day portfolio project demonstrating how synthetic e-commerce data can be generated, cleaned, validated, modeled, analyzed, and visualized using Python, PostgreSQL, SQL, and Power BI.
+
+**Project status:** Week 1 SQL analytics completed; Power BI dashboard development planned for Week 2.
+
+## Project Overview
+
+This project builds a structured analytics pipeline that transforms raw e-commerce data into validated reporting datasets.
+
+The pipeline includes:
+
+- Synthetic data generation using Python and Faker
+- Raw data ingestion into PostgreSQL
+- Data cleaning and deduplication
+- Production dimensional modeling
+- Customer segmentation using Recency, Frequency, and Monetary (RFM) analysis
+- Sales KPI and monthly trend reporting
+- Product and category performance analysis
+- Estimated checkout funnel analysis
+- Automated SQL data quality validation
+- Power BI dashboard development (upcoming)
+
+## Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| Python | Synthetic data generation and validation |
+| Faker | Realistic sample customer and transaction data |
+| PostgreSQL 18 | Data storage, transformation, and analytics |
+| SQL | Cleaning, modeling, window functions, and reporting |
+| pgAdmin 4 | Database administration and SQL execution |
+| Git and GitHub | Version control and project documentation |
+| Power BI | Interactive dashboards (Week 2) |
+
+## Data Pipeline Architecture
+
+```text
+Python + Faker
+      |
+      v
+Synthetic CSV Files
+      |
+      v
+PostgreSQL: raw schema
+      |
+      v
+PostgreSQL: staging schema
+  - Cleaning
+  - Deduplication
+  - Validation
+      |
+      v
+PostgreSQL: production schema
+  - dim_customers
+  - dim_products
+  - fact_orders
+      |
+      +------------------------+
+      |                        |
+      v                        v
+Customer RFM Analytics    Business Analytics
+  - RFM Metrics             - Sales KPIs
+  - RFM Scores              - Monthly Trends
+  - RFM Segments            - Product Performance
+  - Segment Performance     - Category Performance
+                            - Checkout Funnel
+      |                        |
+      +------------+-----------+
+                   |
+                   v
+             Power BI
+          (Coming in Week 2)
+```
+
+## Dataset Summary
+
+| Dataset | Records |
+|---|---:|
+| Raw customers | 1,050 |
+| Raw products | 200 |
+| Raw orders | 5,250 |
+| Production customers | 1,000 |
+| Production products | 190 |
+| Production orders | Equal to validated `staging.orders_valid` |
+
+The synthetic dataset includes intentionally duplicated and invalid records to demonstrate data cleaning and validation techniques.
+
+## Data Quality and Validation
+
+The project includes automated checks covering:
+
+- Primary key uniqueness
+- Required-field completeness
+- Positive product prices and order quantities
+- Foreign key integrity
+- Staging-to-production reconciliation
+- RFM customer coverage and score validity
+- Sales KPI reconciliation
+- Monthly and product/category reporting consistency
+- Checkout funnel consistency
+
+**Verified results:**
+
+- Production validation: 12/12 PASS
+- RFM validation: 15/15 PASS
+- Business analytics validation: 16/16 PASS
+- End-to-end pipeline verification: 12/12 PASS
+- Final data quality validation: 25/25 PASS
+
+These validations were executed against the project PostgreSQL database.
+
+## Analytics Capabilities
+
+### Customer Segmentation
+
+Customers are classified into seven RFM segments, including Champions, Loyal Customers, Potential Loyalists, Recent Customers, At Risk, Needs Attention, and No Purchases.
+
+### Sales and Product Analytics
+
+The reporting layer provides qualifying sales orders, purchasing customers, estimated gross sales value, average order value, monthly growth, cumulative sales, and product/category rankings.
+
+### Checkout Funnel
+
+The checkout analysis estimates order-stage progression across Cart, Checkout, Payment, and Completed.
+
+Because the dataset stores one checkout stage per order, funnel progression is inferred rather than observed from a sequence of website events.
+
+## Reproducibility
+
+For the SQL execution order, dependencies, and validation instructions, see:
+
+[SQL Execution Guide](docs/SQL_EXECUTION_GUIDE.md)
+
+## Project Roadmap
+
+| Phase | Status |
+|---|---|
+| Python data generation | Completed |
+| PostgreSQL raw ingestion | Completed |
+| Staging cleaning and deduplication | Completed |
+| Production dimensional model | Completed |
+| RFM customer analytics | Completed |
+| SQL business analytics | Completed |
+| SQL data quality validation | Completed |
+| Power BI dashboards | Planned |
+| Final portfolio presentation | Planned |
+
+## Known Limitations
+
+- The data is synthetic and does not represent actual customer activity.
+- Customer email is optional; 100 of 1,000 production customers have missing or blank email addresses.
+- Gross sales values use current product dimension prices rather than transaction-level historical prices.
+- Checkout progression is estimated from a single recorded stage per order.
+- The purchasing customer percentage is not a website visitor conversion rate.
+- A complete rebuild from an empty database has not yet been independently tested.
+
+---
+
+## Development Log
+
+The following sections document the project implementation and results by day.
+
+# E-Commerce Analytics Pipeline
+
 An end-to-end data engineering and business analytics project built using Python, PostgreSQL, and SQL.
 
 ## Project Overview
