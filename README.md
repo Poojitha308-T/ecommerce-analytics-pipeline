@@ -1018,6 +1018,35 @@ Completed the final review of the E-Commerce Analytics Pipeline's PostgreSQL imp
 
 **Next:** Day 8 — Connect PostgreSQL to Power BI Desktop and import the reporting datasets.
 
+## Day 9 — Executive Sales Overview Dashboard
+
+Created the first Power BI report page using validated PostgreSQL analytics views.
+
+**Implemented:**
+
+- Four KPI cards: Estimated Gross Sales, Sales Orders, Purchasing Customers, and Average Order Value
+- Monthly Estimated Gross Sales Trend line chart
+- Monthly Sales Orders Trend line chart
+- Dashboard layout and formatting
+- PostgreSQL-to-Power BI KPI reconciliation
+
+**Verified business metrics:**
+
+| Metric | Value |
+|---|---:|
+| Estimated Gross Sales | 61,110,917.16 |
+| Sales Orders | 2,808 |
+| Purchasing Customers | 925 |
+| Average Order Value | 21,763.15 |
+
+**Validation:** 4/4 Day 9 SQL checks passed.
+
+**Power BI report:** `powerbi/Ecommerce_Analytics_Dashboard.pbix`
+
+**Documentation:** [Day 9 Executive Sales Overview](docs/POWER_BI_DAY9_EXECUTIVE_OVERVIEW.md)
+
+**Next:** Day 10 — RFM Customer Segmentation Dashboard.
+
 ## Author
 
 T. Poojitha
