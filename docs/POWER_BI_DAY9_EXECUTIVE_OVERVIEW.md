@@ -59,6 +59,49 @@ Both charts use `sales_month` on the X-axis and cover January 2024 through Septe
 - KPI values may appear abbreviated in Power BI.
 - Import mode requires a refresh to reflect subsequent database changes.
 
+## Final Dashboard Updates
+
+### Report Title
+Executive Sales Overview
+
+### KPI Cards
+
+| KPI | Final Display Value |
+|---|---:|
+| Estimated Gross Sales | 61,110,917.16 |
+| Sales Orders | 2,808 |
+| Purchasing Customers | 925 |
+| Average Order Value | 21,763.15 |
+
+### DAX Display Measures
+
+Created three DAX measures to display exact values without automatic number abbreviation:
+
+- `Sales Orders Display`
+- `Gross Sales Display`
+- `Average Order Value Display`
+
+The original numeric columns were retained.
+
+### Monthly Trend Charts
+
+1. Monthly Estimated Gross Sales Trend
+2. Monthly Sales Orders Trend
+
+Reporting period: January 2024 – September 2026 (33 months).
+
+### Final Validation
+
+- Four KPI cards reviewed.
+- Two monthly trend charts reviewed.
+- No unintended report filters identified.
+- Monthly sales and order totals reconciled with the KPI summary.
+- SQL validation: 4/4 checks passed.
+
+### Important Metric Definition
+
+Estimated Gross Sales is calculated using order quantity multiplied by the corresponding product price. It represents estimated gross sales, not net revenue. No currency symbol is displayed because the project data does not specify a confirmed currency.
+
 ## Next Steps
 
 Day 10 — Customer Segmentation Dashboard using RFM analytics.
