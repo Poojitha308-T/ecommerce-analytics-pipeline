@@ -1118,6 +1118,94 @@ These measures use `FORMAT()` to display exact customer counts instead of abbrev
 
 **Next: Day 11 — Continue Power BI dashboard development using the remaining validated business analytics views.**
 
+## Day 11 – Power BI Product & Category Performance Dashboard
+
+### Objective
+Developed a Product & Category Performance dashboard in Power BI using validated PostgreSQL production analytics views.
+
+### Data Sources
+- `production.category_performance`
+- `production.product_performance`
+
+### Dashboard Page
+**Product & Category Performance Overview**
+
+### KPI Cards
+
+| KPI | Value |
+|---|---:|
+| Total Products | 190 |
+| Total Units Sold | 8,374 |
+| Estimated Gross Sales | 61,110,917.16 |
+| Total Sales Orders | 2,808 |
+
+### Visualizations Implemented
+
+1. Gross Sales by Product Category
+2. Top 10 Products by Gross Sales
+3. Top Products by Units Sold
+4. Sales Orders by Product Category
+
+### Category Performance Insights
+
+| Category | Gross Sales | Sales Share |
+|---|---:|---:|
+| Home | 17,297,428.62 | 28.30% |
+| Sports | 13,638,481.14 | 22.32% |
+| Beauty | 10,778,772.56 | 17.64% |
+| Electronics | 10,703,156.54 | 17.51% |
+| Fashion | 8,693,078.30 | 14.23% |
+
+### Key Business Insights
+
+- Home is the highest-performing category, contributing 28.30% of estimated gross sales.
+- Sports ranks second with a 22.32% sales contribution.
+- Running Shoes (P0162) is the highest-grossing individual product.
+- Office Chair (P0041) leads product unit sales with 77 units.
+- Product-level rankings distinguish sales value from sales volume.
+
+### Technical Implementation
+
+- Connected PostgreSQL production views to Power BI.
+- Created four KPI cards using DAX measures.
+- Created four clustered bar charts.
+- Implemented Top N product filtering.
+- Created a unique product display label using product name and product ID.
+- Included tied products in the Top 10 units sold ranking.
+
+### Validation Results
+
+| Validation | Result | Status |
+|---|---:|---|
+| Total Products | 190 | PASS |
+| Total Categories | 5 | PASS |
+| Total Units Sold | 8,374 | PASS |
+| Total Gross Sales | 61,110,917.16 | PASS |
+| Category Sales Orders | 2,808 | PASS |
+| Category Sales Share | 100.00% | PASS |
+| Top 10 Gross Sales Ranking | Matched | PASS |
+| Top Units Sold Ranking | Matched | PASS |
+
+Product and category gross sales totals reconcile exactly with the existing Day 9 sales KPI.
+
+### Deliverables
+
+- Power BI report: `powerbi/Ecommerce_Analytics_Dashboard.pbix`
+- Documentation: `docs/POWER_BI_DAY11_PRODUCT_CATEGORY_PERFORMANCE.md`
+
+### Important Note
+Gross sales are estimated using product quantities multiplied by current product dimension prices. They do not represent net revenue or profit. No specific currency has been established for the dataset.
+
+### Day 11 Status
+**Completed – Product & Category Performance Dashboard developed, validated, documented, and saved locally.**
+
+### Next Steps – Day 12
+Develop a Checkout Funnel Analysis dashboard using:
+- `production.checkout_funnel_summary`
+- `production.checkout_stage_status`
+
+Analyze checkout stage performance, order status distribution, and potential checkout drop-off patterns.
+
 ## Author
 
 T. Poojitha
