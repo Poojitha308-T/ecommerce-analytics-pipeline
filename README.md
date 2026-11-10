@@ -1047,6 +1047,77 @@ Created the first Power BI report page using validated PostgreSQL analytics view
 
 **Next:** Day 10 — RFM Customer Segmentation Dashboard.
 
+## Day 10 — RFM Customer Segmentation Dashboard
+
+Created the second Power BI dashboard page to analyze customer distribution and estimated monetary contribution across seven RFM customer segments.
+
+**Dashboard page:** `RFM Customer Segments`
+
+**Dashboard title:** RFM Customer Segmentation Overview
+
+**Implemented:**
+
+- Three KPI cards: Total Customers, Purchasing Customers, and Non-Purchasing Customers.
+- Customer Distribution by RFM Segment horizontal bar chart.
+- Estimated Monetary Contribution by RFM Segment horizontal bar chart.
+- Data labels enabled for both charts.
+- Segment charts sorted in descending order.
+- Three DAX display measures to show exact customer counts.
+- Dashboard layout, titles, and formatting.
+- PostgreSQL-to-Power BI customer count reconciliation.
+
+**Verified customer metrics:**
+
+| Metric | Value |
+|---|---:|
+| Total Customers | 1,000 |
+| Purchasing Customers | 925 |
+| Non-Purchasing Customers | 75 |
+| Total Sales Orders | 2,808 |
+| Total Estimated Monetary Value | 61,110,917.16 |
+
+**RFM segment distribution:**
+
+| Customer Segment | Customers | Customer Share |
+|---|---:|---:|
+| Champions | 21 | 2.10% |
+| Loyal Customers | 3 | 0.30% |
+| Potential Loyalists | 103 | 10.30% |
+| Recent Customers | 474 | 47.40% |
+| At Risk | 37 | 3.70% |
+| Needs Attention | 287 | 28.70% |
+| No Purchases | 75 | 7.50% |
+| **Total** | **1,000** | **100.00%** |
+
+**Key business insights:**
+
+- Recent Customers represent the largest segment, with 474 customers (47.40%).
+- Needs Attention is the second-largest segment, with 287 customers (28.70%).
+- Potential Loyalists account for 103 customers (10.30%).
+- Recent Customers contribute the highest estimated monetary value of 28,178,379.33.
+- Needs Attention contributes an estimated monetary value of 13,013,862.11.
+- 75 customers (7.50%) have no qualifying purchases.
+
+**DAX measures created:**
+
+- `Total Customers Display`
+- `Purchasing Customers Display`
+- `Non-Purchasing Customers Display`
+
+These measures use `FORMAT()` to display exact customer counts instead of abbreviated KPI values.
+
+**Data source:** PostgreSQL view `production.rfm_segment_performance`.
+
+**Power BI report:** `powerbi/Ecommerce_Analytics_Dashboard.pbix`
+
+**Documentation:** [Day 10 RFM Customer Segmentation Dashboard](docs/POWER_BI_DAY10_RFM_SEGMENTATION.md)
+
+**Validation:** Customer counts and segment distribution reconciled with the PostgreSQL RFM performance view.
+
+**Important:** Monetary values represent estimated customer spend calculated using product prices and quantities, not net revenue.
+
+**Next: Day 11 — Continue Power BI dashboard development using the remaining validated business analytics views.**
+
 ## Author
 
 T. Poojitha
